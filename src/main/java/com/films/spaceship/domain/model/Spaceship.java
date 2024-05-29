@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +28,6 @@ public class Spaceship {
     /**
      * The date of creation
      */
-    private LocalDateTime dateOfCreation;
+    private Date dateOfCreation;
 
 }
