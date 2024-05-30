@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface SpaceshipService {
     SpaceshipDto createNew(SpaceshipRequest request);
+    SpaceshipDto getByName(String name);
     SpaceshipDto getById(Long id);
     Page<SpaceshipDto> getAll(Pageable pageable);
     void deleteById(Long id);

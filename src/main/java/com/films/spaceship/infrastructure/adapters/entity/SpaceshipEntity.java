@@ -26,7 +26,7 @@ public class SpaceshipEntity {
      * The id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", insertable = false, updatable = false)
     private Long id;
     /**

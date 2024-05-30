@@ -39,6 +39,18 @@ public class SpaceshipPersistenceAdapter implements SpaceshipPersistencePort {
     }
 
     @Override
+    public Spaceship getByName(String name) {
+        var optionalSpaceship = spaceshipRepository.findByName(name.toUpperCase());
+
+        if (optionalSpaceship.isEmpty()){
+            throw new SpaceshipException(HttpStatus.NOT_FOUND,
+                    String.format(SpaceshipConstant.NOT_FOUND_MESSAGE_ERROR, name));
+        }
+
+        return spaceshipDboMapper.toDomain(optionalSpaceship.get());
+    }
+
+    @Override
     public Spaceship getById(Long id) {
 
 

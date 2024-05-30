@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +26,15 @@ public class SpaceshipManagementService implements SpaceshipService {
     @Override
     public SpaceshipDto createNew(SpaceshipRequest request) {
         var spaceshipRequest = spaceshipRequestMapper.toDomain(request);
+        spaceshipRequest.setDateOfCreation(new Date());
         var spaceshipCreated = spaceshipPersistencePort.create(spaceshipRequest);
         return spaceshipDtoMapper.toDto(spaceshipCreated);
+    }
+
+    @Override
+    public SpaceshipDto getByName(String name) {
+        var spaceship = spaceshipPersistencePort.getByName(name);
+        return spaceshipDtoMapper.toDto(spaceship);
     }
 
     @Override

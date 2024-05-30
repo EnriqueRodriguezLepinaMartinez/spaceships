@@ -25,7 +25,12 @@ public class SpaceshipController {
         this.spaceshipService = spaceshipService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("name/{name}")
+    public SpaceshipDto getByName(@PathVariable String name){
+        return spaceshipService.getByName(name);
+    }
+
+    @GetMapping("id/{id}")
     public SpaceshipDto getById(@PathVariable long id){
         return spaceshipService.getById(id);
     }
