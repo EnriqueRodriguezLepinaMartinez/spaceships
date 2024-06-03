@@ -7,9 +7,12 @@ import com.films.spaceship.domain.dto.SpaceshipDto;
 import com.films.spaceship.domain.dto.request.SpaceshipRequest;
 import com.films.spaceship.domain.port.SpaceshipPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,8 +26,15 @@ public class SpaceshipManagementService implements SpaceshipService {
     @Override
     public SpaceshipDto createNew(SpaceshipRequest request) {
         var spaceshipRequest = spaceshipRequestMapper.toDomain(request);
+        spaceshipRequest.setDateOfCreation(new Date());
         var spaceshipCreated = spaceshipPersistencePort.create(spaceshipRequest);
         return spaceshipDtoMapper.toDto(spaceshipCreated);
+    }
+
+    @Override
+    public SpaceshipDto getByName(String name) {
+        var spaceship = spaceshipPersistencePort.getByName(name);
+        return spaceshipDtoMapper.toDto(spaceship);
     }
 
     @Override
@@ -34,12 +44,12 @@ public class SpaceshipManagementService implements SpaceshipService {
     }
 
     @Override
-    public List<SpaceshipDto> getAll() {
-        var spaceships = spaceshipPersistencePort.getAll();
-        return spaceships
-                .stream()
+    public Page<SpaceshipDto> getAll(Pageable pageable) {
+        var spaceships = spaceshipPersistencePort.getAll(pageable).stream()
                 .map(spaceshipDtoMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(spaceships);
     }
 
     @Override

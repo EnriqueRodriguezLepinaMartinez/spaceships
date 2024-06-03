@@ -3,11 +3,19 @@ package com.films.spaceship.infrastructure.rest.controller;
 import com.films.spaceship.applications.usecases.SpaceshipService;
 import com.films.spaceship.domain.dto.SpaceshipDto;
 import com.films.spaceship.domain.dto.request.SpaceshipRequest;
-import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-
+@Tag(name="Spaceships", description = "Endpoints for the spaceships management")
 @RestController
 @RequestMapping("/spaceships")
 public class SpaceshipController {
@@ -18,14 +26,19 @@ public class SpaceshipController {
         this.spaceshipService = spaceshipService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("name/{name}")
+    public SpaceshipDto getByName(@PathVariable String name){
+        return spaceshipService.getByName(name);
+    }
+
+    @GetMapping("id/{id}")
     public SpaceshipDto getById(@PathVariable long id){
         return spaceshipService.getById(id);
     }
 
     @GetMapping
-    public List<SpaceshipDto> getAll() {
-        return spaceshipService.getAll();
+    public Page<SpaceshipDto> getAll(Pageable pageable) {
+        return spaceshipService.getAll(pageable);
     }
 
     @PostMapping()

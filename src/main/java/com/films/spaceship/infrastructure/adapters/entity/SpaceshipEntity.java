@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "SPACESHIPS")
@@ -26,7 +26,7 @@ public class SpaceshipEntity {
      * The id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", insertable = false, updatable = false)
     private Long id;
     /**
@@ -43,6 +43,6 @@ public class SpaceshipEntity {
      * The date of creation
      */
     @Column(name = "CREATION_DATE")
-    private LocalDateTime dateOfCreation;
+    private Date dateOfCreation;
 
 }
