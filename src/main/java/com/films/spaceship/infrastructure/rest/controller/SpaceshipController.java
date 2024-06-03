@@ -3,6 +3,7 @@ package com.films.spaceship.infrastructure.rest.controller;
 import com.films.spaceship.applications.usecases.SpaceshipService;
 import com.films.spaceship.domain.dto.SpaceshipDto;
 import com.films.spaceship.domain.dto.request.SpaceshipRequest;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Tag(name="Spaceships", description = "Endpoints for the spaceships management")
 @RestController
 @RequestMapping("/spaceships")
 public class SpaceshipController {
